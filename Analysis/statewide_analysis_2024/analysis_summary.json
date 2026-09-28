@@ -1,0 +1,35 @@
+{
+  "input_rows": 413,
+  "primary_analysis_rows": 411,
+  "excluded_rows_for_missing_core_features": 2,
+  "excluded_zipcodes": [
+    "01249",
+    "02111"
+  ],
+  "core_features": [
+    "Broadband_Rate",
+    "No_Computer_Rate",
+    "Computer_No_Internet_Rate",
+    "ACS_Median_Family_Income",
+    "Low_Income_Share_lt25k",
+    "High_Income_Share_150k_plus"
+  ],
+  "education_outcomes_not_used_for_clustering": [
+    "MCAS_Math_M_PLUS_E_PCT_ZIP",
+    "MCAS_ELA_M_PLUS_E_PCT_ZIP",
+    "MCAS_Math_AVG_SCALED_SCORE_WT",
+    "MCAS_ELA_AVG_SCALED_SCORE_WT"
+  ],
+  "selected_k_by_highest_silhouette": 2,
+  "selected_k_silhouette": 0.38222015955706085,
+  "pca_pc1_explained_variance": 0.6803945614939116,
+  "pca_pc2_explained_variance": 0.14584170320688644,
+  "pca_first_two_cumulative_variance": 0.8262362647007981,
+  "kmeans_vs_ward_adjusted_rand_index": 0.3953220772644468,
+  "notes": [
+    "Primary clustering uses only socioeconomic and digital-access variables.",
+    "MCAS outcomes are summarized after clustering and do not determine cluster membership.",
+    "Rates are standardized before PCA and clustering; raw values are retained for interpretation.",
+    "Rows missing any core feature are excluded rather than imputed."
+  ]
+}
