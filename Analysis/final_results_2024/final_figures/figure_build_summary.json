@@ -1,0 +1,22 @@
+{
+  "master_rows": 413,
+  "primary_rows": 411,
+  "primary_features": [
+    "Broadband_Rate",
+    "No_Computer_Rate",
+    "Computer_No_Internet_Rate",
+    "ACS_Median_Family_Income",
+    "Low_Income_Share_lt25k",
+    "High_Income_Share_150k_plus",
+    "MCAS_Math_M_PLUS_E_PCT_ZIP",
+    "MCAS_ELA_M_PLUS_E_PCT_ZIP"
+  ],
+  "pc1_explained_variance": 0.666252458751514,
+  "pc2_explained_variance": 0.14299718488224566,
+  "pc1_pc2_cumulative": 0.8092496436337596,
+  "cluster_sizes": {
+    "0": 237,
+    "1": 174
+  },
+  "reclassified_rows": 32
+}

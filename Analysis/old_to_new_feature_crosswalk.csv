@@ -1,0 +1,26 @@
+Inherited_Feature,2024_Replacement_or_Closest_Equivalent,Action,Notes
+Average_Rating,MCAS_Math_M_PLUS_E_PCT_ZIP / MCAS_ELA_M_PLUS_E_PCT_ZIP / MCAS_Science_M_PLUS_E_PCT_ZIP,Replace,Official DESE outcomes replace GreatSchools rating; not numerically equivalent.
+Sum_Awards,,Drop,Sparse GreatSchools-derived measure; no direct 2024 MCAS equivalent.
+Private_Rating,,Drop,Inherited variable was constant zero and private schools are outside current MCAS public/charter scope.
+Public_Rating,,Drop,Inherited aggregation was questionable; replace with official MCAS outcomes.
+Student_Teacher_Ratio,,Do not carry forward yet,Not required for current digital-divide PCA; could later add an official DESE staffing measure.
+Total_Families,ACS_Total_Families,Recreate statewide,2024 ACS B19101 denominator.
+Median income (dollars)_Families,ACS_Median_Family_Income,Recreate statewide,2024 ACS B19113.
+"Total!!Less than $10,000_Families",Income_Share_lt10k,Recreate as rate,2024 ACS B19101 share.
+"Total!!$10,000 to $14,999_Families",Income_Share_10k_14999,Recreate as rate,2024 ACS B19101 share.
+"Total!!$15,000 to $24,999_Families",Income_Share_15k_19999 + Income_Share_20k_24999,Recreate at finer resolution,2024 ACS B19101 splits this inherited band into two categories.
+"Total!!$25,000 to $34,999_Families",Income_Share_25k_29999 + Income_Share_30k_34999,Recreate at finer resolution,2024 ACS B19101 splits this inherited band into two categories.
+"Total!!$35,000 to $49,999_Families",Income_Share_35k_39999 + Income_Share_40k_44999 + Income_Share_45k_49999,Recreate at finer resolution,2024 ACS B19101 splits this inherited band into three categories.
+"Total!!$50,000 to $74,999_Families",Income_Share_50k_59999 + Income_Share_60k_74999,Recreate at finer resolution,2024 ACS B19101 splits this inherited band into two categories.
+"Total!!$75,000 to $99,999_Families",Income_Share_75k_99999,Recreate as rate,2024 ACS B19101 share.
+"Total!!$100,000 to $149,999_Families",Income_Share_100k_124999 + Income_Share_125k_149999,Recreate at finer resolution,2024 ACS B19101 splits this inherited band into two categories.
+"Total!!$150,000 to $199,999_Families",Income_Share_150k_199999,Recreate as rate,2024 ACS B19101 share.
+"Total!!$200,000 or more_Families",Income_Share_200k_plus,Recreate as rate,2024 ACS B19101 share.
+Total:,ACS_Total_Households / ACS_B28002_Total_Households,Recreate statewide,2024 ACS household denominator.
+Total:!!Has a computer:!!With a broadband subscription:,Broadband_Rate / Broadband_Any_Rate,Recreate as rate,Use penetration rather than raw household count.
+Total:!!Has a computer:!!Without Internet subscription,Computer_No_Internet_Rate,Recreate as rate,2024 ACS B28003.
+Total:!!No Computer,No_Computer_Rate,Recreate as rate,2024 ACS B28003.
+Total:!!Has a computer:!!With dial-up Internet subscription alone,Dialup_Only_Rate,Recreate as rate,2024 ACS B28002 closest comparable measure.
+Total:!!Has a computer:!!With a broadband subscription:!!With a fixed broadband Internet subscription:,Cable_Fiber_DSL_Rate,Closest 2024 proxy,Conceptually related but not an exact historical definition match.
+Total:!!Has a computer:!!With a broadband subscription:!!Cellular data plan alone or with dial-up,Cellular_Only_Rate / Cellular_Data_Rate,Closest 2024 proxy,2024 B28002 provides cellular data and cellular-only categories.
+public + private ratio,,Drop,Inherited field contains negative values and is not interpretable as a conventional ratio.
