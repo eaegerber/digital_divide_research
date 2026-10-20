@@ -1,0 +1,77 @@
+
+# macOS / R temporary files
+.DS_Store
+**/.DS_Store
+.Rhistory
+**/.Rhistory
+
+# Raw large source datasets
+Analysis/MCAS_Achievement_Results_20260927.csv
+Analysis/MCAS_Achievement_Results_20260927.csv.zip
+MCAS_Achievement_Results_20260927-v2.csv
+
+# Intermediate/debug MCAS scripts
+Analysis/build_mcas_zip_dataset.py
+Analysis/build_mcas_zip_dataset_BACKUP.py
+Analysis/build_mcas_zip_dataset_BEFORE_PARTICIPATION_FIX.py
+Analysis/build_mcas_zip_dataset_v3.py
+
+# Intermediate output folders
+Analysis/analysis_v2_outputs/
+Analysis/mcas_zip_outputs/
+Analysis/mcas_zip_outputs_2024/
+Analysis/mcas_zip_outputs_2024_final/
+Analysis/acs_2024_outputs/
+
+# Old exported workbook
+Analysis/Digital-Divide-WorkBook-5b597e6b613e435997ccb39215163f41.html
+
+# Keep statewide analysis folder selective
+Analysis/statewide_analysis_2024/*
+!Analysis/statewide_analysis_2024/analysis_summary.json
+!Analysis/statewide_analysis_2024/descriptive_statistics.csv
+!Analysis/statewide_analysis_2024/correlations_core.csv
+!Analysis/statewide_analysis_2024/correlations_core_with_mcas.csv
+!Analysis/statewide_analysis_2024/pca_explained_variance.csv
+!Analysis/statewide_analysis_2024/pca_loadings.csv
+!Analysis/statewide_analysis_2024/kmeans_model_selection.csv
+!Analysis/statewide_analysis_2024/cluster_profiles.csv
+!Analysis/statewide_analysis_2024/cluster_mcas_summary.csv
+!Analysis/statewide_analysis_2024/pca_explained_variance.png
+!Analysis/statewide_analysis_2024/pca_clusters.png
+!Analysis/statewide_analysis_2024/cluster_profiles_standardized.png
+!Analysis/statewide_analysis_2024/cluster_mcas_means.png
+!Analysis/statewide_analysis_2024/kmeans_silhouette.png
+!Analysis/statewide_analysis_2024/kmeans_elbow.png
+
+# Expanded 2024 intermediate/generated outputs
+Analysis/mcas_zip_outputs_2024_expanded/
+Analysis/acs_2024_outputs_expanded/
+Analysis/zcta_geography_2024/
+Analysis/statewide_analysis_2024_v2/
+Analysis/statewide_analysis_2024_v3/
+
+# Raw/local MassGIS shapefile components
+Analysis/Schools/*.shp
+Analysis/Schools/*.shx
+Analysis/Schools/*.dbf
+Analysis/Schools/*.prj
+Analysis/Schools/*.cpg
+
+# Python / secrets
+**/__pycache__/
+*.pyc
+.env
+.env.*
+
+# Additional local/raw files
+Analysis/MCAS_Achievement_Results_20260927 2.csv
+Analysis/Schools/
+
+# Superseded local analysis drafts
+Analysis/digital_divide_analysis_v2.py
+Analysis/digital_divide_statewide_2024_v2.py
+
+# Local planning / rendered convenience files
+Analysis/NEXT_STEPS_POST_GERBER.md
+Analysis/final_results_2024/FINAL_RESULTS_SUMMARY.html
