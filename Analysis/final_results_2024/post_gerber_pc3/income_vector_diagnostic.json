@@ -1,0 +1,8 @@
+{
+  "low_high_income_share_correlation": -0.6106814610163306,
+  "loading_vector_angle_PC1_PC2_degrees": 125.6777527734735,
+  "loading_vector_angle_PC1_PC2_PC3_degrees": 127.7289505658665,
+  "middle_income_share_mean": 0.4942032412479813,
+  "middle_income_share_median": 0.5101094655505474,
+  "interpretation": "Low-income and high-income shares are not complements because families in the middle-income ranges account for a large and varying share of each ZCTA. Therefore the two variables need not have correlation -1 or loading vectors 180 degrees apart."
+}

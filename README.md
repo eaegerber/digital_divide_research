@@ -83,3 +83,58 @@ Broadband Institute input, particularly whether to:
 1. incorporate broadband availability/infrastructure data to distinguish
    availability from household adoption; or
 2. move toward supervised modeling of educational outcomes.
+
+## Post-Gerber PC3 and geographic extension
+
+Following additional research feedback, the analysis was extended to examine
+the third principal component, retain Math/ELA participation, test alternative
+cluster granularities, and investigate geographic/outlier patterns.
+
+Key additions include:
+
+- PC3 analysis for both the original 8-feature model and a 10-feature model
+  retaining Math/ELA participation
+- Interactive Plotly PC1/PC2/PC3 triplots with feature loading vectors
+- KMeans comparisons using the first 2 PCs, first 3 PCs, and full standardized
+  feature space
+- Explicit k=2, k=4, and k=6 cluster-profile comparisons
+- Interactive Massachusetts and Greater Boston maps with ZIP-level hover data
+- Geographic mapping of PC3
+- ZCTA polygon choropleths for cluster assignment and PC3
+- Domain-mismatch analysis to identify ZIPs where SES, digital access, and
+  educational attainment do not follow the dominant statewide relationship
+- Residual analysis identifying places with unusually high or low digital
+  access relative to their SES and educational profile
+
+The extension preserves the original 411-observation Math/ELA model as the
+benchmark rather than replacing it.
+
+### Initial PC3 findings
+
+For the original 8-feature model:
+
+- PC1: 66.63%
+- PC2: 14.30%
+- PC3: 7.14%
+- PC1-PC3 cumulative explained variance: approximately 88.1%
+
+When Math/ELA participation is retained:
+
+- PC1: 53.40%
+- PC2: 15.39%
+- PC3: 11.31%
+- PC1-PC3 cumulative explained variance: approximately 80.1%
+
+Participation remains concentrated primarily on PC2, while PC3 captures a
+different mixture dominated by digital-access variation.
+
+Adding PC3 does not materially alter the primary k=2 segmentation. More granular
+k=4 and k=6 solutions were also examined, but have weaker cluster separation.
+
+Detailed outputs are available under:
+
+`Analysis/final_results_2024/post_gerber_pc3/`
+
+The full extension code is:
+
+`Analysis/post_gerber_pc3_extension.py`
