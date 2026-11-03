@@ -1,0 +1,34 @@
+{
+  "n": 411,
+  "primary8": {
+    "pc1": 0.666252458751514,
+    "pc2": 0.14299718488224566,
+    "pc3": 0.07138964041913533,
+    "pc1_pc2_pc3": 0.8806392840528949
+  },
+  "participation10": {
+    "pc1": 0.5340392492024059,
+    "pc2": 0.15391526751824933,
+    "pc3": 0.11308667477210965,
+    "pc1_pc2_pc3": 0.8010411914927649
+  },
+  "income_vector_diagnostic": {
+    "low_high_income_share_correlation": -0.6106814610163306,
+    "loading_vector_angle_PC1_PC2_degrees": 125.6777527734735,
+    "loading_vector_angle_PC1_PC2_PC3_degrees": 127.7289505658665,
+    "middle_income_share_mean": 0.4942032412479813,
+    "middle_income_share_median": 0.5101094655505474,
+    "interpretation": "Low-income and high-income shares are not complements because families in the middle-income ranges account for a large and varying share of each ZCTA. Therefore the two variables need not have correlation -1 or loading vectors 180 degrees apart."
+  },
+  "k2_agreement": {
+    "ARI_2PC_vs_3PC_k2": 1.0,
+    "ARI_3PC_vs_full10D_k2": 1.0,
+    "ARI_2PC_vs_full10D_k2": 1.0
+  },
+  "mismatch_counts": {
+    "No extreme cross-domain mismatch": 404,
+    "Low SES + high digital access": 3,
+    "High SES + low digital access": 3,
+    "High SES + high education + low digital access": 1
+  }
+}

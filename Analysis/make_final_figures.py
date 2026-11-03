@@ -67,10 +67,17 @@ PRIMARY_CLUSTER_NAMES = {
     1: "Lower SES/access/attainment profile",
 }
 
-SCIENCE_CLUSTER_NAMES = {
-    0: "Lower combined profile",
-    1: "Higher combined profile",
-    2: "Low-participation outlier group",
+# Fine-tuned label offsets for the final primary biplot.  These keep the
+# feature labels readable while preserving the actual loading-vector geometry.
+BIPLOT_LABEL_OFFSETS = {
+    "Computer_No_Internet_Rate": (-14, 36),
+    "No_Computer_Rate": (-14, 20),
+    "Low_Income_Share_lt25k": (-14, -2),
+    "MCAS_ELA_M_PLUS_E_PCT_ZIP": (15, 40),
+    "MCAS_Math_M_PLUS_E_PCT_ZIP": (15, 24),
+    "High_Income_Share_150k_plus": (15, 7),
+    "ACS_Median_Family_Income": (15, -10),
+    "Broadband_Rate": (12, -18),
 }
 
 
@@ -140,7 +147,8 @@ def fit_primary_pca(primary):
 
 
 def save_biplot(primary, pca, scores, out):
-    fig, ax = plt.subplots(figsize=(12, 8))
+    """Save the final readable PC1/PC2 loading-vector biplot."""
+    fig, ax = plt.subplots(figsize=(13, 8.5))
 
     for cluster_id in sorted(primary["KMeans_Cluster"].unique()):
         mask = primary["KMeans_Cluster"].to_numpy() == cluster_id
@@ -148,53 +156,67 @@ def save_biplot(primary, pca, scores, out):
             scores[mask, 0],
             scores[mask, 1],
             alpha=0.62,
-            s=38,
+            s=42,
             label=PRIMARY_CLUSTER_NAMES.get(cluster_id, f"Cluster {cluster_id}"),
         )
 
-    ax.axhline(0, linewidth=0.8)
-    ax.axvline(0, linewidth=0.8)
+    ax.axhline(0, linewidth=0.8, alpha=0.7)
+    ax.axvline(0, linewidth=0.8, alpha=0.7)
 
     loadings = pca.components_.T[:, :2]
-
-    # Scale vectors into the observation-score coordinate system.
     x_span = np.nanpercentile(scores[:, 0], 95) - np.nanpercentile(scores[:, 0], 5)
     y_span = np.nanpercentile(scores[:, 1], 95) - np.nanpercentile(scores[:, 1], 5)
-    scale = min(x_span, y_span) * 0.68
+    vector_scale = min(x_span, y_span) * 0.67
 
     for feature, (lx, ly) in zip(PRIMARY_FEATURES, loadings):
-        x_end = lx * scale
-        y_end = ly * scale
-
+        x_end = lx * vector_scale
+        y_end = ly * vector_scale
         ax.annotate(
             "",
             xy=(x_end, y_end),
             xytext=(0, 0),
-            arrowprops=dict(arrowstyle="->", linewidth=1.5),
+            arrowprops=dict(arrowstyle="->", linewidth=1.6),
         )
 
-        dx = 6 if x_end >= 0 else -6
-        dy = 6 if y_end >= 0 else -6
-
+        dx, dy = BIPLOT_LABEL_OFFSETS[feature]
         ax.annotate(
             DISPLAY_NAMES[feature],
             xy=(x_end, y_end),
             xytext=(dx, dy),
             textcoords="offset points",
-            ha="left" if x_end >= 0 else "right",
-            va="bottom" if y_end >= 0 else "top",
-            fontsize=9,
+            fontsize=9.5,
+            ha="left" if dx >= 0 else "right",
+            va="center",
+            bbox=dict(
+                boxstyle="round,pad=0.18",
+                facecolor="white",
+                edgecolor="none",
+                alpha=0.78,
+            ),
         )
 
     ev = pca.explained_variance_ratio_
-    ax.set_xlabel(f"PC1 — joint SES/access/attainment gradient ({ev[0]*100:.1f}%)")
-    ax.set_ylabel(f"PC2 ({ev[1]*100:.1f}%)")
-    ax.set_title("Primary PCA biplot: socioeconomic, digital-access, and education features")
-    ax.legend(title="Primary KMeans segmentation", loc="best")
-    fig.tight_layout()
-    fig.savefig(out, dpi=220, bbox_inches="tight")
+    ax.set_xlabel(
+        f"PC1 — joint SES/access/attainment gradient ({ev[0]*100:.1f}%)",
+        fontsize=11,
+    )
+    ax.set_ylabel(f"PC2 ({ev[1]*100:.1f}%)", fontsize=11)
+    ax.set_title(
+        "Primary PCA: socioeconomic status, digital access, and educational attainment",
+        fontsize=14,
+    )
+    ax.legend(title="Primary KMeans segmentation", loc="upper right", fontsize=9.5)
+    ax.margins(x=0.05, y=0.08)
+    fig.text(
+        0.5,
+        0.015,
+        "Arrows show standardized feature loadings; points represent school-location ZIP/ZCTA observations.",
+        ha="center",
+        fontsize=9,
+    )
+    fig.tight_layout(rect=[0, 0.035, 1, 1])
+    fig.savefig(out, dpi=250, bbox_inches="tight")
     plt.close(fig)
-
 
 def save_kmeans_pca(primary, pca, scores, out):
     fig, ax = plt.subplots(figsize=(10, 7))
@@ -251,7 +273,7 @@ def format_map_axes(ax, title):
     ax.set_xlabel("Longitude")
     ax.set_ylabel("Latitude")
     ax.set_title(title)
-    ax.set_aspect("equal", adjustable="box")
+    ax.set_aspect(1 / np.cos(np.deg2rad(42.2)), adjustable="box")
 
 
 def save_cluster_map(primary, out):
@@ -416,6 +438,61 @@ def save_explained_variance(pca, out):
     plt.close(fig)
 
 
+def infer_science_cluster_names(science):
+    """
+    Give the Science-participation sensitivity clusters semantic labels without
+    assuming numeric KMeans labels have a fixed meaning.
+    """
+    counts = science["KMeans_Cluster"].value_counts()
+    if len(counts) < 2:
+        return {int(k): f"Cluster {int(k)}" for k in counts.index}
+
+    smallest = int(counts.idxmin()) if len(counts) >= 3 else None
+    positive = [
+        "Broadband_Rate",
+        "ACS_Median_Family_Income",
+        "High_Income_Share_150k_plus",
+        "MCAS_Math_M_PLUS_E_PCT_ZIP",
+        "MCAS_ELA_M_PLUS_E_PCT_ZIP",
+        "MCAS_Science_M_PLUS_E_PCT_ZIP",
+    ]
+    negative = [
+        "No_Computer_Rate",
+        "Computer_No_Internet_Rate",
+        "Low_Income_Share_lt25k",
+    ]
+    available = [c for c in positive + negative if c in science.columns]
+    z = science[available].copy()
+    for c in available:
+        sd = z[c].std(ddof=0)
+        z[c] = (z[c] - z[c].mean()) / sd if sd else 0.0
+    score = pd.Series(0.0, index=science.index)
+    for c in positive:
+        if c in z.columns:
+            score += z[c]
+    for c in negative:
+        if c in z.columns:
+            score -= z[c]
+    science_scores = pd.DataFrame({
+        "KMeans_Cluster": science["KMeans_Cluster"].to_numpy(),
+        "Combined_Profile_Score": score.to_numpy(),
+    })
+    means = science_scores.groupby("KMeans_Cluster")["Combined_Profile_Score"].mean()
+
+    names = {}
+    regular = [int(k) for k in means.index if smallest is None or int(k) != smallest]
+    if smallest is not None:
+        names[smallest] = "Low-participation outlier group"
+    if regular:
+        hi = int(means.loc[regular].idxmax())
+        lo = int(means.loc[regular].idxmin())
+        names[hi] = "Higher combined profile"
+        names[lo] = "Lower combined profile"
+        for k in regular:
+            names.setdefault(k, f"Cluster {k}")
+    return names
+
+
 def save_science_sensitivity(science, out):
     required = ["PC1", "PC2", "KMeans_Cluster"]
     missing = [c for c in required if c not in science.columns]
@@ -423,6 +500,7 @@ def save_science_sensitivity(science, out):
         raise ValueError(f"Science sensitivity file is missing: {missing}")
 
     fig, ax = plt.subplots(figsize=(10, 7))
+    cluster_names = infer_science_cluster_names(science)
 
     for cluster_id in sorted(science["KMeans_Cluster"].unique()):
         d = science.loc[science["KMeans_Cluster"] == cluster_id]
@@ -431,7 +509,7 @@ def save_science_sensitivity(science, out):
             d["PC2"],
             s=42,
             alpha=0.72,
-            label=SCIENCE_CLUSTER_NAMES.get(cluster_id, f"Cluster {cluster_id}"),
+            label=cluster_names.get(int(cluster_id), f"Cluster {cluster_id}"),
         )
 
     ax.axhline(0, linewidth=0.7)

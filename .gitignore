@@ -75,3 +75,7 @@ Analysis/digital_divide_statewide_2024_v2.py
 # Local planning / rendered convenience files
 Analysis/NEXT_STEPS_POST_GERBER.md
 Analysis/final_results_2024/FINAL_RESULTS_SUMMARY.html
+
+# Downloaded Census geography cache
+Analysis/final_results_2024/post_gerber_pc3/cache/
+
