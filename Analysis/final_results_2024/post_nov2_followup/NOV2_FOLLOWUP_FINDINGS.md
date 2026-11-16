@@ -62,3 +62,22 @@ The new output keeps these as separate fields so the provenance is visible.
 The Devens record should be treated as an audit priority because it combines a
 very large PC3 score with an unusually low ACS broadband-subscription rate and
 a small ACS household denominator relative to neighboring ZIPs.
+
+
+
+ ## Current interpretation
+
+The statewide PCA and clustering structure appears increasingly stable.
+
+The most defensible interpretation at this stage is:
+
+- **k=2** remains the preferred broad statewide segmentation. It has the highest first-three-PC silhouette among the tested k values (0.401), balanced cluster sizes (237 and 174), and perfect initialization stability (mean ARI = 1.000).
+- **k=3** provides the most useful higher-granularity alternative. Its three clusters form interpretable higher-, middle-, and lower-resource/attainment groups with sizes 127, 208, and 76.
+- **k=4 and above** begin isolating a three-observation participation-outlier cluster.
+- **k=5** does not provide stronger evidence of five distinct statewide groups. Its silhouette falls to 0.327 and the additional clusters mainly subdivide the same underlying PC1 socioeconomic / educational / digital-access gradient.
+- Therefore, increasing k further is less promising than investigating unusual ZIP/ZCTA observations using complementary mismatch, residual, and KDE diagnostics.
+
+The KDE analysis reinforces this shift toward anomaly investigation. ZIP/ZCTA 01434 / Devens is especially notable because it is simultaneously characterized by a very large positive PC3 score, unusually low broadband subscription relative to its SES and education profile, and an extreme multivariate PCA density score.
+
+The next substantive data extension should distinguish **household broadband subscription/adoption** from **actual broadband infrastructure availability** using FCC Broadband Data Collection or Massachusetts Broadband Institute data. 
+
